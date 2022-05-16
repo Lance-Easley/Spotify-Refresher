@@ -1,5 +1,5 @@
 import time
-from pywinauto import Application
+import pywinauto
 
 path = r"C:\Users\atlas\AppData\Roaming\Spotify\Spotify.exe"
 spotify = None
@@ -7,11 +7,10 @@ spotify = None
 def start_spotify():
     global spotify
 
-    Application().start(path)
-    app = Application(backend="uia").connect(path=path)
+    pywinauto.Application().start(path)
+    app = pywinauto.Application(backend="uia").connect(path=path)
 
-    app["Spotify Free"].exists(timeout=30)
-    handle = app["Spotify Free"].handle
+    handle = pywinauto.findwindows.find_window(best_match="Spotify")
     spotify = app.window(handle=handle)
 
 start_spotify()
