@@ -1,4 +1,5 @@
 import time
+import comtypes
 import pywinauto
 
 path = r"C:\Users\atlas\AppData\Roaming\Spotify\Spotify.exe"
@@ -15,14 +16,24 @@ def start_spotify():
 
 start_spotify()
 
-while True:
-    spotify.child_window(title="Play", control_type="Button").exists(timeout=10)
-    spotify.child_window(title="Play", control_type="Button").click()
-    
-    print("waiting")
-    spotify.child_window(title="Advertisement", control_type="Group").exists(timeout=3600)
-    spotify.close()
+# When program launched, do not alt-tab so user can navigate Spotify
+# After ad run, alt-tab after program re-ran so window doesn't stay on screen
+do_alt_tab = True
 
-    time.sleep(1)
+try:
+    while True:
+        spotify.child_window(title="Play", control_type="Button").exists(timeout=10)
+        spotify.child_window(title="Play", control_type="Button").click()
+        if do_alt_tab: pywinauto.keyboard.send_keys("%{TAB}")
+        do_alt_tab = False
 
-    start_spotify()
+        print("waiting")
+        spotify.child_window(title="Advertisement", control_type="Group").exists(timeout=3600)
+        spotify.close()
+
+        time.sleep(1)
+
+        start_spotify()
+except comtypes.COMError:
+    # User closed Spotify
+    exit()
