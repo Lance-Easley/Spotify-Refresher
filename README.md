@@ -14,7 +14,7 @@ This cycle repeats over and over, giving you infinite "minutes of uninterrupted 
 
 Built with Python 3.10
 
-This script requires [pywinauto](https://pywinauto-docs.readthedocs.io/en/docs-rework/) to interact with the Spotify window (thus only for Windows).
+This script requires [pywinauto](https://pywinauto.readthedocs.io/en/latest/) to interact with the Spotify window (thus only for Windows).
 
 Make a shortcut of Spotify-Refresher.py, rename it as you wish, and place it wherever you need.
 If you are on Windows 10 and want to pin it to your start menu, place the shortcut in `C:\Users\{username}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs`.
