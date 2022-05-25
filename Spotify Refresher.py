@@ -11,21 +11,24 @@ def start_spotify():
     pywinauto.Application().start(path)
     app = pywinauto.Application(backend="uia").connect(path=path)
 
+    app.wait_cpu_usage_lower()
+
     handle = pywinauto.findwindows.find_window(best_match="Spotify")
     spotify = app.window(handle=handle)
+    spotify.wait("ready")
 
 start_spotify()
 
 # When program launched, do not alt-tab so user can navigate Spotify
 # After ad run, alt-tab after program re-ran so window doesn't stay on screen
-do_alt_tab = True
+hide_spotify_window = False
 
 try:
     while True:
         spotify.child_window(title="Play", control_type="Button").exists(timeout=10)
         spotify.child_window(title="Play", control_type="Button").click()
-        if do_alt_tab: pywinauto.keyboard.send_keys("%{TAB}")
-        do_alt_tab = False
+        if hide_spotify_window: pywinauto.keyboard.send_keys("%{TAB}")
+        hide_spotify_window = True
 
         print("waiting")
         spotify.child_window(title="Advertisement", control_type="Group").exists(timeout=3600)
