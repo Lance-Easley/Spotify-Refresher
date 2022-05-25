@@ -25,8 +25,8 @@ hide_spotify_window = False
 
 try:
     while True:
-        spotify.child_window(title="Play", control_type="Button").exists(timeout=10)
-        spotify.child_window(title="Play", control_type="Button").click()
+        spotify.child_window(found_index = 0, title="Play", control_type="Button").exists(timeout=10)
+        spotify.child_window(found_index = 0, title="Play", control_type="Button").click()
         if hide_spotify_window: pywinauto.keyboard.send_keys("%{TAB}")
         hide_spotify_window = True
 
