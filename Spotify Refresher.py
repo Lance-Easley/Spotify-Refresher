@@ -31,7 +31,9 @@ try:
         hide_spotify_window = True
 
         print("waiting")
-        spotify.child_window(title="Advertisement", control_type="Group").exists(timeout=3600)
+        while not spotify.child_window(title="Advertisement", control_type="Group").exists(timeout=3600):
+            print("still waiting")
+
         spotify.close()
 
         time.sleep(1)
